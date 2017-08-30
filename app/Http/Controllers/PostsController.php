@@ -64,11 +64,13 @@ class PostsController extends Controller
             'title'       => $request->title,
             'content'     => $request->content,
             'featured'    => 'uploads/posts/' . $featured_new_name,
-            'category_id' => $request->category_id
-        ]);
-        
+            'category_id' => $request->category_id,
+            'slug'        => str_slug($request->title)  // Create new laravel project === create-new-laravel-project
+        ]);       
         // Flash message
         Session::flash('success', 'Post created successfully.');
+        // Redirekcija
+        return redirect()->back();
     }
 
     /**
