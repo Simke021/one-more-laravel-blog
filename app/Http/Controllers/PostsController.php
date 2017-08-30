@@ -92,7 +92,10 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        // Uzimam post iz baze po id-u
+        $post = Post::find($id);
+        // Prikazujem ga na strani za editovanje sa svim kategorijama
+        return view('admin.posts.edit')->with('post', $post)->with('categories', Category::all());
     }
 
     /**
@@ -104,7 +107,35 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validacija
+        $this->validate($request, [
+            'title'       => 'required',
+            'content'     => 'required',
+            'category_id' => 'required'
+        ]);
+        // Trazim post u bazi po id-u
+        $post = Post::find($id);
+        // Proveravam da li je admin uradio update slike
+        if ($request->hasFile('featured')) {
+            // Uzimam sliku iz forme
+            $featured = $request->featured;
+            // Menjam joj ime kako nebi doslo do greske ako se pojave dve slike sa istim imenom
+            $featured_new_name = time() . $featured->getClientOriginalName();
+            // Path slike i ubacujem je
+            $featured->move('uploads/posts', $featured_new_name);
+            //Update-ujem sliku sa novim imenom
+            $post->featured = 'uploads/posts/' . $featured_new_name;
+        }
+        // Update-ujem post
+        $post->title       = $request->title;
+        $post->content     = $request->content;
+        $post->category_id = $request->category_id;
+
+        $post->save();
+        // Flash message
+        Session::flash('success', 'Post updated successfully.');
+        // Redirekcija
+        return redirect()->route('posts');
     }
 
     /**
