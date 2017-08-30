@@ -144,4 +144,15 @@ class PostsController extends Controller
         // Redirekcija
         return redirect()->back();
     }
+    public function restore($id)
+    {
+        // Uzimam iz baze trashed post po id-u
+        $post = Post::withTrashed()->where('id', $id)->first();
+        // Radim restore 
+        $post->restore();
+        // Flash message
+        Session::flash('success', 'Post restored successfully');
+        // Redirekcija
+        return redirect()->route('posts');
+    }
 }

@@ -36,6 +36,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 		'uses' => 'PostsController@trashed',
 		'as'   => 'posts.trashed'
 	]);
+	Route::get('/posts/restore/{id}', [
+		'uses' => 'PostsController@restore',
+		'as'   => 'post.restore'
+	]);
 	Route::get('/posts/kill/{id}', [
 		'uses' => 'PostsController@kill',
 		'as'   => 'post.kill'
