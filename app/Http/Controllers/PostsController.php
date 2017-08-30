@@ -115,6 +115,33 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Trazim post po id-u
+        $post = Post::find($id);
+        // Brisem post
+        $post->delete();
+        // Flash message
+        Session::flash('success', 'Your post was just trashed.');
+        // Redirekcija
+        return redirect()->back();
+    }
+
+    public function trashed()
+    {
+        // Utimam trashed postove iz baze
+        $posts = Post::onlyTrashed()->get();
+        // Prikazujem ih na strani
+        return view('admin.posts.trashed')->with('posts', $posts);
+    }
+
+    public function kill($id)
+    {
+        // Uzimam iz baze trashed post po id-u
+        $post = Post::withTrashed()->where('id', $id)->first();
+        // Brisem iz baze 
+        $post->forceDelete();
+        // Flash message
+        Session::flash('success', 'Post deleted permanently.');
+        // Redirekcija
+        return redirect()->back();
     }
 }
