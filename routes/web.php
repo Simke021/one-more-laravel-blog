@@ -16,9 +16,21 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 		'uses' => 'PostsController@create',
 		'as'   => 'post.create'
 	]);
+	Route::get('/posts', [
+		'uses' => 'PostsController@index',
+		'as'   => 'posts'
+	]);
 	Route::post('/post/store', [
 		'uses' => 'PostsController@store',
 		'as'   => 'post.store'
+	]);
+	Route::get('/post/edit/{id}', [
+		'uses' => 'PostsController@edit',
+		'as'   => 'post.edit'
+	]);
+	Route::get('/post/delete/{id}', [
+		'uses' => 'PostsController@destroy',
+		'as'   => 'post.delete'
 	]);
 	// Category routes
 	Route::get('/category/create', [
