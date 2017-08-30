@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\Post;
 use Session;
 
 class PostsController extends Controller
@@ -43,8 +44,22 @@ class PostsController extends Controller
             'content'     => 'required',
             'category_id' => 'required'
         ]);
-
-        dd($request->all());
+        // Kupim verdnosti iz forme
+        $featured = $request->featured;
+        // Menjam ime slike kako nebi bile dve slike sa istim nazivom
+        $featured_new_name = time() . $featured->getClientOriginalName();
+        // Cuvam sliku u folderu public/uploads/posts
+        $featured->move('uploads/posts', $featured_new_name);
+        // Ubacujem u post sve iz forme
+        $post = Post::create([
+            'title'       => $request->title,
+            'content'     => $request->content,
+            'featured'    => 'uploads/posts/' . $featured_new_name,
+            'category_id' => $request->category_id
+        ]);
+        
+        // Flash message
+        Session::flash('success', 'Post created successfully.');
     }
 
     /**
