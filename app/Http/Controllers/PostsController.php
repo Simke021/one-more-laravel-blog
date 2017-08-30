@@ -26,7 +26,16 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create')->with('categories' , Category::all());
+        // Uzimam sve kategorije
+        $categories = Category::all();
+        // Proveravam da li postoji karegorija
+        if($categories->count() == 0){
+            // Potuka da nema karegorija
+            Session::flash('info', 'You must have some categories before attemting to create a post.');
+            // Redirekcija
+            return redirect()->back();
+        }
+        return view('admin.posts.create')->with('categories' , $categories);
     }
 
     /**
