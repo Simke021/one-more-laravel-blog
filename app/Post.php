@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-	    /**
+    use SoftDeletes;
+	   /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -14,6 +16,8 @@ class Post extends Model
     protected $fillable = [
         'title', 'content', 'category_id',  'featured'
     ];
+
+    protected $dates = ['deleted_at'];
 
     //
     public function categories()
