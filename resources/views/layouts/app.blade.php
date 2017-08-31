@@ -82,7 +82,14 @@
                         </li>
                         <li class="list-group-item">
                             <a href="{{ route('categories') }}">All categories</a>
-                        </li><li class="list-group-item">
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ route('tag.create') }}">Create new tag</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ route('tags') }}">All tags</a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="{{ route('posts') }}">All posts</a>
                         </li>
                         </li><li class="list-group-item">

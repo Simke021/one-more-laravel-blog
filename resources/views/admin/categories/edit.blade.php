@@ -3,7 +3,7 @@
 	@include('admin.includes.errors')
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			Update category: <strong>{{ $category->name }}</strong>
+			Update category : <strong>{{ $category->name }}</strong>
 		</div>
 		<div class="panel-body">
 			<form action="{{ route('category.update', ['id' => $category->id]) }}" method="POST">
