@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Post;
+use App\Tag;
 use Session;
 
 class PostsController extends Controller
@@ -30,12 +31,15 @@ class PostsController extends Controller
         $categories = Category::all();
         // Proveravam da li postoji karegorija
         if($categories->count() == 0){
-            // Potuka da nema karegorija
+            // Poruka da nema karegorija
             Session::flash('info', 'You must have some categories before attemting to create a post.');
             // Redirekcija
             return redirect()->back();
         }
-        return view('admin.posts.create')->with('categories' , $categories);
+        // Ubacijem kategorije na stranu 
+        return view('admin.posts.create')->with('categories' , $categories)
+                                        // Ubacujem tags
+                                         ->with('tags', Tag::all());
     }
 
     /**
@@ -51,7 +55,8 @@ class PostsController extends Controller
             'title'       => 'required|max:255',
             'featured'    => 'required|image',
             'content'     => 'required',
-            'category_id' => 'required'
+            'category_id' => 'required', 
+            'tags'        => 'required'
         ]);
         // Kupim verdnosti iz forme
         $featured = $request->featured;
@@ -66,7 +71,9 @@ class PostsController extends Controller
             'featured'    => 'uploads/posts/' . $featured_new_name,
             'category_id' => $request->category_id,
             'slug'        => str_slug($request->title)  // Create new laravel project === create-new-laravel-project
-        ]);       
+        ]);   
+        // Dodajem selektovane tagove u post metodom attach()
+        $post->tags()->attach($request->tags);;
         // Flash message
         Session::flash('success', 'Post created successfully.');
         // Redirekcija
