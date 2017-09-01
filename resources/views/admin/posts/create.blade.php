@@ -26,21 +26,15 @@
 				</div>
 				<div class="form-group">
 					<label for="tags">Select a Tags:</label>
-					@if(count($tags) > 0)
-						@foreach($tags as $tag)
-							<div class="checkbox">
-								<label><input type="checkbox" name="tags[]" id="tags" value="{{ $tag->id }}">{{ $tag->tag }}</label>
-							</div>
-						@endforeach
-					@else
-						  <p class="alert alert-info text-center"><strong>Info!</strong> No tags. You can easy create new tag if you want. <a href="{{ route('tag.create') }}">Click here</a></p>
-
-						
-					@endif
+					@foreach($tags as $tag)
+						<div class="checkbox">
+							<label><input type="checkbox" name="tags[]" id="tags" value="{{ $tag->id }}">{{ $tag->tag }}</label>
+						</div>
+					@endforeach
 				</div>
 				<div class="form-group">
 					<label for="content">Content:</label>
-					<textarea name="content" id="content" class="form-control" cols="5" rows="5"></textarea>
+					<textarea name="content" id="content" class="form-control" cols="10" rows="10"></textarea>
 				</div>
 				<div class="form-group">
 					<div class="text-center">
@@ -50,5 +44,17 @@
 			</form>
 		</div>
 	</div>	
-
+@stop
+@section('styles')
+	<!-- include summernote css / http://summernote.org/getting-started/ -->
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.7/summernote.css" rel="stylesheet">
+@stop
+@section('scripts')
+	<!-- include summernote js / http://summernote.org/getting-started/-->
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.7/summernote.js"></script>
+	<script>
+		$(document).ready(function() {
+  			$('#content').summernote();
+		});
+	</script>
 @stop
