@@ -72,7 +72,7 @@ class PostsController extends Controller
             'category_id' => $request->category_id,
             'slug'        => str_slug($request->title)  // Create new laravel project === create-new-laravel-project
         ]);   
-        // Dodajem selektovane tagove u post metodom attach()
+        // Dodajem selektovane tagove u post, metodom attach()
         $post->tags()->attach($request->tags);;
         // Flash message
         Session::flash('success', 'Post created successfully.');
@@ -101,8 +101,10 @@ class PostsController extends Controller
     {
         // Uzimam post iz baze po id-u
         $post = Post::find($id);
-        // Prikazujem ga na strani za editovanje sa svim kategorijama
-        return view('admin.posts.edit')->with('post', $post)->with('categories', Category::all());
+        // Prikazujem ga na strani za editovanje sa svim kategorijama i tagovima
+        return view('admin.posts.edit')->with('post', $post)
+                                       ->with('categories', Category::all())
+                                       ->with('tags', Tag::all());
     }
 
     /**
@@ -139,6 +141,8 @@ class PostsController extends Controller
         $post->category_id = $request->category_id;
 
         $post->save();
+        // Update-ujem tagove u postu
+        $post->tags()->sync($request->tags);
         // Flash message
         Session::flash('success', 'Post updated successfully.');
         // Redirekcija
