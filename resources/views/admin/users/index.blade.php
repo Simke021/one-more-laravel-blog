@@ -18,7 +18,13 @@
 						<tr>
 							<td><img src="{{ asset($user->profile->avatar) }}" alt="avatar" width="50px" height="50px" style="border-radius: 50%;" title="{{ $user->name }} - avatar"></td>
 							<td>{{ $user->name }}</td>
-							<td>Permissions</td>
+							<td>
+								@if($user->admin)
+									<a href="{{ route('user.not.admin', ['id' => $user->id]) }}" class="btn btn-danger btn-xs">Remove permission</a>
+								@else
+									<a href="{{ route('user.admin', ['id' => $user->id]) }}" class="btn btn-success btn-xs">Make admin</a>
+								@endif
+							</td>
 							<td>Delete</td>
 						</tr>
 					@endforeach

@@ -50,7 +50,9 @@ class UsersController extends Controller
         ]);
         // Profil user-a
         $profile = Profile::create([
-            'user_id'  => $user->id
+            'user_id'  => $user->id,
+            // Default avatar
+            'avatar'   => 'uploads/avatars/avatar.png'
         ]);
         // Flash popruka
         Session::flash('success', 'User added successfully.');
@@ -102,5 +104,30 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // Make admin
+    public function admin($id)
+    {
+        $user = User::find($id);
+
+        $user->admin = 1;
+        $user->save();
+
+        Session::flash('success', 'Successfully changed user permission.');
+        return redirect()->back();
+    }
+
+    // Not admin
+    public function not_admin($id)
+    {
+        $user = User::find($id);
+
+        $user->admin = 0;
+        $user->save();
+
+        Session::flash('success', 'Successfully changed user permission.');
+        return redirect()->back();
+
     }
 }
