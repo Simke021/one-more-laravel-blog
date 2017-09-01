@@ -107,9 +107,14 @@ class CategoriesController extends Controller
     public function destroy($id)
     {
         $category = Category::find($id);
+        // Brisem sve postove koji su vezani za kategoriju
+        foreach($category->posts as $post){
+            $post->delete();
+        };
+        // ili forceDelte() ako zelim da obrisem skroz post iz baze
         $category->delete();
         // Flash session poruka
-        Session::flash('success', 'You successfully deleted category.');
+        Session::flash('success', 'You successfully deleted category and trash all posts with that category.');
         return redirect(route('categories'));
     }
 }

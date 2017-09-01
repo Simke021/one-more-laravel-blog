@@ -26,11 +26,17 @@
 				</div>
 				<div class="form-group">
 					<label for="tags">Select a Tags:</label>
-					@foreach($tags as $tag)
-						<div class="checkbox">
-						<label><input type="checkbox" name="tags[]" id="tags" value="{{ $tag->id }}">{{ $tag->tag }}</label>
-					</div>
-					@endforeach
+					@if(count($tags) > 0)
+						@foreach($tags as $tag)
+							<div class="checkbox">
+								<label><input type="checkbox" name="tags[]" id="tags" value="{{ $tag->id }}">{{ $tag->tag }}</label>
+							</div>
+						@endforeach
+					@else
+						  <p class="alert alert-info text-center"><strong>Info!</strong> No tags. You can easy create new tag if you want. <a href="{{ route('tag.create') }}">Click here</a></p>
+
+						
+					@endif
 				</div>
 				<div class="form-group">
 					<label for="content">Content:</label>

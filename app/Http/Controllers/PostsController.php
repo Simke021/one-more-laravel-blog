@@ -29,17 +29,19 @@ class PostsController extends Controller
     {
         // Uzimam sve kategorije
         $categories = Category::all();
-        // Proveravam da li postoji karegorija
-        if($categories->count() == 0){
-            // Poruka da nema karegorija
-            Session::flash('info', 'You must have some categories before attemting to create a post.');
+        // Uzimam sve tagove
+        $tags = Tag::all();
+        // Proveravam da li postoji karegorija ili tagova
+        if($categories->count() == 0 || $tags->count() == 0){
+            // Poruka da nema karegorija i tagova
+            Session::flash('info', 'You must have some categories and tags before attemting to create a post.');
             // Redirekcija
             return redirect()->back();
         }
         // Ubacijem kategorije na stranu 
         return view('admin.posts.create')->with('categories' , $categories)
                                         // Ubacujem tags
-                                         ->with('tags', Tag::all());
+                                         ->with('tags', $tags);
     }
 
     /**
