@@ -14,8 +14,7 @@ class CategoriesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        
+    {       
         // Prikazujem ih na strani           // Uzimam sve kategorije iz baze i stavljam ih u promenljivu categories
         return view('admin.categories.index')->with('categories', Category::all());
     }
