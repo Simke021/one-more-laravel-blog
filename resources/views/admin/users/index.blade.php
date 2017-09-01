@@ -10,6 +10,7 @@
 					<th>Avatar</th>
 					<th>Name</th>
 					<th>Permissions</th>
+					<th>Status</th>
 					<th>Delete</th>
 				</thead>
 				<tbody>
@@ -23,6 +24,13 @@
 									<a href="{{ route('user.not.admin', ['id' => $user->id]) }}" class="btn btn-danger btn-xs">Remove permission</a>
 								@else
 									<a href="{{ route('user.admin', ['id' => $user->id]) }}" class="btn btn-success btn-xs">Make admin</a>
+								@endif
+							</td>
+							<td>
+								@if($user->admin)
+									Admin
+								@else
+									User
 								@endif
 							</td>
 							<td>Delete</td>

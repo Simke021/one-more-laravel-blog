@@ -9,6 +9,12 @@ use App\Profile;
 
 class UsersController extends Controller
 {
+
+    public function __construct()
+    {
+        // Samo admin moze da pristupi users delu u admin panel-u
+        $this->middleware('admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -110,7 +116,7 @@ class UsersController extends Controller
     public function admin($id)
     {
         $user = User::find($id);
-
+        // menjam boolian vrednost admin sa 0 na 1
         $user->admin = 1;
         $user->save();
 
@@ -122,7 +128,7 @@ class UsersController extends Controller
     public function not_admin($id)
     {
         $user = User::find($id);
-
+        // menjam boolian vrednost admin sa 1 na 0
         $user->admin = 0;
         $user->save();
 
