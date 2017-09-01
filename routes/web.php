@@ -99,5 +99,20 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 		'as'   => 'tags'
 	]);
 
+	// User routes
+	Route::get('/user/create', [
+		'uses' => 'UsersController@create',
+		'as'   => 'user.create'
+	]);
+
+	Route::get('/users', [
+		'uses' => 'UsersController@index',
+		'as'   => 'users'
+ 	]);
+
+ 	Route::post('/user/store', [
+		'uses' => 'UsersController@store',
+		'as'   => 'user.store'
+	]);
 });
 

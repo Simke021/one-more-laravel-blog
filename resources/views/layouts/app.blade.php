@@ -100,7 +100,10 @@
                         </li>                       
                         <li class="list-group-item">
                             <a href="{{ route('post.create') }}">Create new post</a>
-                        </li>                                             
+                        </li>  
+                        <li class="list-group-item">
+                            <a href="{{ route('user.create') }}">Create new user</a>
+                        </li>                                            
                     </ul>
                 </div>
             @endif
