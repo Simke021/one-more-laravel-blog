@@ -22,4 +22,15 @@ class FrontendController extends Controller
     						->with('mysql', Category::find(12))    // wordpress kategorija
     						->with('settings', Setting::first());    // settings
     }
+
+    public function singlePost($slug)
+    {
+    	//Uzimam iz tabele post - slug
+    	$post = Post::where('slug', $slug)->first();
+    	// Prikazujem na strani odgovarajuci post
+    	return view('single')->with('post', $post)           // ceo post
+    						 ->with('title', $post->title)   // title post-a 
+    						 ->with('categories', Category::take(5)->get()) // 5 kategorije prikazujem;
+    						 ->with('settings', Setting::first());    // settings
+    }
 }
