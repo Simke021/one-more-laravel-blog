@@ -42,6 +42,17 @@ class FrontendController extends Controller
     						 ->with('settings', Setting::first())    // settings
     						 ->with('next', Post::find($next_id))    // next post
     						 ->with('prev', Post::find($prev_id))    // prevous post
-    						 ->with('tags', Tag::all());   // prevous post
+    						 ->with('tags', Tag::all());   // svi tagovi
+    }
+
+    public function category($id)
+    {
+    	// Trazim kategoriju po id-u
+    	$category = Category::find($id);
+
+    	return view('category')->with('category', $category)
+    						   ->with('title', $category->name)   // ime kategorije 
+    						   ->with('categories', Category::take(5)->get()) // 5 kategorije prikazujem;
+    						   ->with('settings', Setting::first());   // settings
     }
 }
