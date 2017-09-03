@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Tag;
 use App\Setting;
 use App\Category;
 
@@ -40,6 +41,7 @@ class FrontendController extends Controller
     						 ->with('categories', Category::take(5)->get()) // 5 kategorije prikazujem;
     						 ->with('settings', Setting::first())    // settings
     						 ->with('next', Post::find($next_id))    // next post
-    						 ->with('prev', Post::find($prev_id));    // prevous post
+    						 ->with('prev', Post::find($prev_id))    // prevous post
+    						 ->with('tags', Tag::all());   // prevous post
     }
 }
