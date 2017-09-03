@@ -55,4 +55,15 @@ class FrontendController extends Controller
     						   ->with('categories', Category::take(5)->get()) // 5 kategorije prikazujem;
     						   ->with('settings', Setting::first());   // settings
     }
+
+    public function tag($id)
+    {
+        // Trazim kategoriju po id-u
+        $tag = Tag::find($id);
+
+        return view('tag')->with('tag', $tag)
+                               ->with('title', $tag->tag)   // ime taga za naslov
+                               ->with('categories', Category::take(5)->get()) // 5 kategorije prikazujem;
+                               ->with('settings', Setting::first());   // settings / footer
+    }
 }
