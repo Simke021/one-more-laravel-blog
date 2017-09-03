@@ -151,7 +151,6 @@
                     <!-- End Post Details -->
 
                     <!-- Sidebar-->
-                    <hr>
                     <div class="col-lg-12">
                         <aside aria-label="sidebar" class="sidebar sidebar-right">
                             <div  class="widget w-tags">

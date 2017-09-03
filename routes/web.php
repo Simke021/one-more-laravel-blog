@@ -15,6 +15,16 @@ Route::get('/category/{id}', [
 	'as'   => 'category.single'
 ]);
 
+Route::get('/results', function(){
+	// Search 
+	$posts = \App\Post::where('title', 'like', '%' . request('query') . '%')->get();
+	return view('results')->with('posts', $posts) // svi postovi
+						  ->with('title', 'Search results : ' . request('query'))  // uneta pretraga  
+    					  ->with('categories', \App\Category::take(5)->get())  // kategorije za header
+    					  ->with('settings', \App\Setting::first())  // settings za footer
+    					  ->with('query', request('query'));  // pretraga  
+});
+
 Route::get('/tag/{id}', [
 	'uses' => 'FrontendController@tag',
 	'as'   => 'tag.single'
