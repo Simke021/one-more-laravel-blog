@@ -75,7 +75,8 @@ class ProfilesController extends Controller
             'name'     => 'required',
             'email'    => 'required|email',
             'facebook' => 'required|url',
-            'twitter'  => 'required|url'
+            'twitter'  => 'required|url',
+            'about'    => 'required'
         ]);
 
         // Radim update

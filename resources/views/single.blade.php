@@ -22,9 +22,9 @@
                             <div class="post__content">
                                 <div class="post-additional-info">
                                     <div class="post__author author vcard">
-                                        Posted by
+                                        Posted by: 
                                         <div class="post__author-name fn">
-                                            <a href="#" class="post__author-link">Admin</a>
+                                            <a href="#" class="post__author-link">{{ $post->user->name }}</a>
                                         </div>
                                     </div>
                                     <span class="post__date">
@@ -74,67 +74,29 @@
                         <div class="blog-details-author">
 
                             <div class="blog-details-author-thumb">
-                                <img src="{{ asset('app/img/blog-details-author.png') }}" alt="Author">
+                                <img src="{{ asset($post->user->profile->avatar )}}" alt="Author-{{ $post->user->name }}" title="{{ $post->user->name }}">
                             </div>
 
                             <div class="blog-details-author-content">
                                 <div class="author-info">
-                                    <h5 class="author-name">Philip Demarco</h5>
-                                    <p class="author-info">SEO Specialist</p>
+                                    <h5 class="author-name">{{ $post->user->name }}</h5>
                                 </div>
-                                <p class="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-                                    nonummy nibh euismod.
-                                </p>
+                                <p class="text">{{ $post->user->profile->about }}</p>
                                 <div class="socials">
-
-                                    <a href="#" class="social__item">
+                                    <a href="{{ $post->user->profile->facebook }}" class="social__item" target="_blank">
                                         <img src="{{ asset('app/svg/circle-facebook.svg') }}" alt="facebook">
                                     </a>
 
-                                    <a href="#" class="social__item">
+                                    <a href="{{ $post->user->profile->twitter }}" class="social__item" target="_blank">
                                         <img src="{{ asset('app/svg/twitter.svg') }}" alt="twitter">
                                     </a>
-
-                                    <a href="#" class="social__item">
-                                        <img src="{{ asset('app/svg/google.svg') }}" alt="google">
-                                    </a>
-
-                                    <a href="#" class="social__item">
-                                        <img src="{{ asset('app/svg/youtube.svg') }}" alt="youtube">
-                                    </a>
-
                                 </div>
                             </div>
                         </div>
 
                         <div class="pagination-arrow">
-
-                        @if($prev)
-                            <a href="{{ route('post.single', ['slug' => $prev->slug]) }}" class="btn-prev-wrap">
-                                <svg class="btn-prev">
-                                    <use xlink:href="#arrow-left"></use>
-                                </svg>
-                                <div class="btn-content">
-                                    <div class="btn-content-title">Previous Post</div>
-                                    <p class="btn-content-subtitle">{{ $prev->title }}</p>
-                                </div>
-                            </a>
-                        @endif
-
-                        @if($next)
-                            <a href="{{ route('post.single', ['slug' => $next->slug]) }}" class="btn-next-wrap">
-                                <div class="btn-content">
-                                    <div class="btn-content-title">Next Post</div>
-                                    <p class="btn-content-subtitle">{{ $next->title }}</p>
-                                </div>
-                                <svg class="btn-next">
-                                    <use xlink:href="#arrow-right"></use>
-                                </svg>
-                            </a>
-                        @endif
-
+                        @include('includes.pagination')
                         </div>
-
                         <div class="comments">
                             <div class="heading text-center">
                                 <h4 class="h1 heading-title">Comments</h4>
@@ -145,34 +107,11 @@
                             </div>                            
                             @include('includes.disqus')
                         </div>
-
                     </div>
-
                     <!-- End Post Details -->
-
                     <!-- Sidebar-->
-                    <div class="col-lg-12">
-                        <aside aria-label="sidebar" class="sidebar sidebar-right">
-                            <div  class="widget w-tags">
-                                <div class="heading text-center">
-                                    <h4 class="heading-title">ALL BLOG TAGS</h4>
-                                    <div class="heading-line">
-                                        <span class="short-line"></span>
-                                        <span class="long-line"></span>
-                                    </div>
-                                </div>
-
-                                <div class="tags-wrap">
-                                @foreach($tags as $tag)
-                                    <a href="{{ route('tag.single', ['id' =>$tag->id]) }}" class="w-tags-item">{{ $tag->tag }}</a>
-                                @endforeach
-                                </div>
-                            </div>
-                        </aside>
-                    </div>
-
+                    @include('includes.tags')
                     <!-- End Sidebar-->
-
                 </main>
             </div>
         </div>

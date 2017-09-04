@@ -7,6 +7,7 @@ use App\Category;
 use App\Post;
 use App\Tag;
 use Session;
+use Auth;
 
 class PostsController extends Controller
 {
@@ -58,7 +59,8 @@ class PostsController extends Controller
             'featured'    => 'required|image',
             'content'     => 'required',
             'category_id' => 'required', 
-            'tags'        => 'required'
+            'tags'        => 'required', 
+            'user_id'     => Auth::id()
         ]);
         // Kupim verdnosti iz forme
         $featured = $request->featured;

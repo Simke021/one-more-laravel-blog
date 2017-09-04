@@ -14,10 +14,11 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'content', 'category_id',  'featured', 'slug'
+        'title', 'content', 'category_id',  'featured', 'slug', 'user,id'
     ];
 
     public function getFeaturedAttribute($featured){
+        // ceo path slike
         return asset($featured);
     }
 
@@ -32,5 +33,10 @@ class Post extends Model
     public function tags()
     {
         return $this->belongsToMany('App\Tag');
+    }
+
+    // Veza izmedju postova i user-a
+    public function user(){
+        return $this->belongsTo('App\User');
     }
 }
