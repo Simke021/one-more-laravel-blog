@@ -48,12 +48,14 @@ class FrontendController extends Controller
     public function category($id)
     {
     	// Trazim kategoriju po id-u
-    	$category = Category::find($id);
+    	$category = Category::find($id);        
+        $categories = Category::all();
 
     	return view('category')->with('category', $category)
     						   ->with('title', $category->name)   // ime kategorije 
     						   ->with('categories', Category::take(5)->get()) // 5 kategorije prikazujem;
-    						   ->with('settings', Setting::first());   // settings
+    						   ->with('settings', Setting::first())   // settings
+                               ->with('categories', $categories);
     }
 
     public function tag($id)
@@ -64,6 +66,7 @@ class FrontendController extends Controller
         return view('tag')->with('tag', $tag)
                                ->with('title', $tag->tag)   // ime taga za naslov
                                ->with('categories', Category::take(5)->get()) // 5 kategorije prikazujem;
-                               ->with('settings', Setting::first());   // settings / footer
+                               ->with('settings', Setting::first())   // settings / footer
+                               ->with('tags', Tag::all());
     }
 }
