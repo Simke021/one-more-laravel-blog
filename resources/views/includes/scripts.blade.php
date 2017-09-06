@@ -3,7 +3,6 @@
 <script src="{{ asset('app/js/swiper.jquery.min.js') }}" ></script>
 <script src="{{ asset('app/js/theme-plugins.js') }}" ></script>
 <script src="{{ asset('app/js/main.js') }}" ></script>
-<script src="{{ asset('app/js/form-actions.js') }}" ></script>
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-59ad7949c19998d6"></script>
 <script src="{{ asset('app/js/velocity.min.js') }}" ></script>
